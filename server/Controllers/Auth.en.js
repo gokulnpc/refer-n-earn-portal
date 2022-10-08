@@ -20,10 +20,10 @@ Router.post("/signup", async (req, res) => {
     await UserModel.findByEmailAndPhone(req.body);
     const newUser = await UserModel.create(req.body);
     const token = newUser.generateJwtToken();
-    return res.status(200).json({ token, status: "success" });
+    return res.status(200).json({message:"successfully registered"});
   } catch (error) {
-    console.log(error);
-    return res.status(500).json({ error: error.message });
+    console.log(error.details[0].message);
+    return res.status(400).json({ error:error.details[0].message});
   }
 });
 
@@ -43,16 +43,10 @@ Router.post("/signin", async (req, res) => {
     const user = await UserModel.findByEmailAndPassword(req.body);
     const token = user.generateJwtToken(user.id);
     console.log(token);
-    return res.status(200).json({ message: token,port:8080});
-    /*return res
-    .cookie("access_token", token, {
-      httpOnly: true,
-    })
-    .status(200)
-    .json({ message: "Logged in successfully 😊 👌" });*/
+    return res.status(200).json({message:"successfully Logged in"});
   } catch (error) {
     console.log(error);
-    return res.status(500).json({ error: error });
+    return res.status(500).json({error:error.details[0].message});
   }
 });
 /**

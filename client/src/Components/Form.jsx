@@ -2,6 +2,7 @@ import "../App.css";
 import { React, useState } from "react";
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
+import Swal from 'sweetalert2';
 import {
   MDBContainer,
   MDBTabs,
@@ -42,11 +43,24 @@ function Form() {
     await axios.post('http://localhost:8080/auth/signup', result).then(respond => {
       //console.log("the frontend side is : ",respond);
       console.log(respond.data);
+      Swal.fire(
+        'Good job!',
+        'You have successgully registered...!',
+        'You can login now'
+      )
       clear();
       /*if(respond.data.status==200)
           return (<Redirect to={window.location.href="/"} />)*/
     }).catch(respond => {
+      Swal.fire({
+        position: 'top-end',
+        icon: 'error',
+        title:respond.response.data.error,
+        showConfirmButton: false,
+        timer: 1500
+      })
       console.log(respond);
+      clear();
     });
   }
   async function loginbut() {
@@ -64,11 +78,19 @@ function Form() {
       console.log("the frontend side is : ", respond.data.message, respond.data.port);
       localStorage.setItem('dataKey', respond.data.message);
       clear();
-      return navigate("/OTPAuthen");
+      navigate("/OTPAuthen");
+      return;
       /*if(respond.data.status==200)
           return (<Redirect to={window.location.href="/"} />)*/
     }).catch(respond => {
       console.log("catch");
+      Swal.fire({
+        position: 'top-end',
+        icon: 'error',
+        title:respond.response.data.error,
+        showConfirmButton: false,
+        timer: 1500
+      })
       console.log(respond);
     });
   }
@@ -158,15 +180,6 @@ function Form() {
             onChange={(e) => { (setPassword(e.target.value)) }}
             type="password"
           />
-          <MDBInput
-            wrapperClass="mb-4"
-            label="Referal Code"
-            id="form4"
-            type="text"
-            value={refer}
-            onChange={(e) => { (setrefer(e.target.value)) }}
-          />
-
           <div className="d-flex justify-content-center mb-4"></div>
 
           <MDBBtn className="mb-4 w-100" onClick={submit}>Sign up</MDBBtn>

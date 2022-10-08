@@ -13,7 +13,7 @@ export const validationSignup = (userData) => {
     ip_visited:joi.allow(null)
   });
   //Validate the data asynchronisly
-  console.log("success validation");
+  //console.log("success validation");
   return Schema.validateAsync(userData);
 }
 

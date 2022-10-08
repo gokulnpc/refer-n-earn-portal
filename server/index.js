@@ -12,9 +12,12 @@ portal.use(cors());
 portal.use(express.json());
 portal.use(helmet());
 portal.use(cookieParser());
-//Routing part 
+portal.use(express.static("public"));
+//Routing part
 portal.use("/auth",Auth);
 portal.use("/invite",Referral);
-portal.listen(8080,()=>{
+
+const port = process.env.PORT || 8080
+portal.listen(port,()=>{
     console.log("Server is connected to the port 8080");
 })

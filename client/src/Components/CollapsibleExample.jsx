@@ -7,20 +7,47 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 import Button from 'react-bootstrap/Button';
 import { useNavigate} from "react-router-dom";
 import { React, useState,useEffect } from "react";
+import Swal from 'sweetalert2';
 function CollapsibleExample() {
   const[ref,setref]=useState('');
   let navigate = useNavigate();
   async function logout() {
     localStorage.removeItem("dataKey");
+    Swal.fire({
+      position: 'top-end',
+      icon: 'success',
+      title: 'Successfully Logout',
+      showConfirmButton: false,
+      timer: 1500
+    })
     return navigate("/");
+  }
+  function clear() {
+    setref("");
   }
   async function referal() {
     console.log(ref);
     await axios.post(ref).then(respond => {
         console.log(respond);
+        Swal.fire({
+          position: 'top-end',
+          icon: 'success',
+          title: 'Reward Successfully added',
+          showConfirmButton: false,
+          timer: 1500
+        })
+        clear();
     }).catch(error => {
       console.log(error);
       console.log("not added");
+      Swal.fire({
+        position: 'top-end',
+        icon: 'error',
+        title: 'Already used this referral',
+        showConfirmButton: false,
+        timer: 1500
+      })
+      clear();
     });
   };
   return (
