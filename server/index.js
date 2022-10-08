@@ -1,5 +1,11 @@
 //packages
 import express from "express";
+import path from "path";
+
+import {fileURLToPath} from 'url';
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 import cors from "cors";
 import helmet from "helmet";
 import cookieParser from "cookie-parser";
@@ -12,7 +18,9 @@ portal.use(cors());
 portal.use(express.json());
 portal.use(helmet());
 portal.use(cookieParser());
-portal.use(express.static("public"));
+
+portal.use(express.static(path.join(__dirname + "/public")));
+
 //Routing part
 portal.use("/auth",Auth);
 portal.use("/invite",Referral);
