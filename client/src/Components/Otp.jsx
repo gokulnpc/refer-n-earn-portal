@@ -60,7 +60,7 @@ function Otp() {
     <MDBContainer className="p-3 my-5 d-flex flex-column w-50">
 
       <MDBTabsContent>
-        <center><b> <p class="fw-bold">Please Enter OTP</p></b></center>
+        <center><b> <p class="fw-bold">Check your mail for OTP</p></b></center>
         <MDBTabsPane show={justifyActive === "tab1"}>
           <MDBInput wrapperClass="mb-4" label="OTP" id="form1" type="text" value={otp}
             onChange={(e) => { (setotp(e.target.value)) }} />

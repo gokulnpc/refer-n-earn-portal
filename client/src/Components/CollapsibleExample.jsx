@@ -32,7 +32,7 @@ function CollapsibleExample() {
         Swal.fire({
           position: 'top-end',
           icon: 'success',
-          title: 'Reward Successfully added',
+          title: 'Referral link successfully used',
           showConfirmButton: false,
           timer: 1500
         })

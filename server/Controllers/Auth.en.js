@@ -43,10 +43,16 @@ Router.post("/signin", async (req, res) => {
     const user = await UserModel.findByEmailAndPassword(req.body);
     const token = user.generateJwtToken(user.id);
     console.log(token);
-    return res.status(200).json({message:"successfully Logged in"});
+    return res.status(200).json({ message: token,port:8080});
+    /*return res
+    .cookie("access_token", token, {
+      httpOnly: true,
+    })
+    .status(200)
+    .json({ message: "Logged in successfully 😊 👌" });*/
   } catch (error) {
     console.log(error);
-    return res.status(500).json({error:error.details[0].message});
+    return res.status(500).json({ error: error });
   }
 });
 /**
