@@ -25,6 +25,8 @@ portal.use(express.static(path.join(__dirname + "/public")));
 //Routing part 
 portal.use("/auth", Auth);
 portal.use("/invite", Referral);
-portal.listen(8080, () => {
+
+const port = process.env.PORT || 8080
+portal.listen(port, () => {
     console.log("Server is connected to the port 8080");
 })
